@@ -14,6 +14,8 @@ file(GLOB_RECURSE SOURCE_FILES CONFIGURE_DEPENDS
 # 头文件目录
 include_directories(
     "${CMAKE_SOURCE_DIR}/include"
+    "${CMAKE_SOURCE_DIR}/modules/rapidjson/include"
+    "${CMAKE_SOURCE_DIR}/modules/OpenCore/include"
 )
 
 # 创建可执行文件
