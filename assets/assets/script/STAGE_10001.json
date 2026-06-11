@@ -59,6 +59,10 @@
         "path": "assets/ui/button_exit.png",
         "category": "texture"
     },
+    "2012": {
+        "path": "assets/backgrounds/menu_nighttime.png",
+        "category": "texture"
+    },
     "9001": {
         "path": "assets/ui/font/OpenCoreFont.ttf",
         "category": "font",

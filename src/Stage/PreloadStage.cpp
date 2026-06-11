@@ -140,7 +140,7 @@ void PreloadStage::buildLoadingUI()
         .Posite(1.0f, 1.0f)
         .Scale(0.0f, 0.3f);
 
-    loadingTag->Animate().Timer(13.0f).Commit();
+    loadingTag->Animate().Timer(2.0f).Commit();
 
     Elements->PushElement(std::move(loadingTag));
 }

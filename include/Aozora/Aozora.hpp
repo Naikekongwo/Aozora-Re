@@ -19,6 +19,7 @@
 #define img_bucontinue 2009
 #define img_busettings 2010
 #define img_buexit 2011
+#define background_main_night 2012
 
 #define font_normal 9001
 

@@ -34,13 +34,10 @@ class MainStage : public OverlayStage
 
     bool parseEvents(Event *event) override;
 
+    void initializeComponents() override;
+
   private:
     MainStagePhase phase = MainStagePhase::Entering;
-
-    // 工具函数
-    void setupBackground();
-    void setupTitle();
-    void setupButtons();
 };
 
 #endif //_MAINSTAGE_H_

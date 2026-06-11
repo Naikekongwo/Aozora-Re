@@ -1,5 +1,7 @@
+#include "Aozora/Stage/MainStage.hpp"
 #include "Aozora/Aozora.hpp"
 #include "OpenCore.hpp"
+#include <ctime>
 #include <functional>
 #include <memory>
 
@@ -14,8 +16,54 @@ MainStage::MainStage(Timer *timer, StageManager *sController)
     this->stageType = StageType::overlayStage;
 }
 
-void MainStage::setupBackground()
+void MainStage::onEnter()
 {
+    // 播放进入动画、BGM
+    OpenCoreManagers::SFXManager.stopBGM();
+    phase = MainStagePhase::Idle;
+
+    OpenCoreManagers::SFXManager.changeBGM(1003);
+    OpenCoreManagers::SFXManager.playBGM();
+
+    initializeComponents();
+}
+
+void MainStage::onExit()
+{
+    // 停止动画、音效
+}
+
+void MainStage::onUpdate()
+{
+    Elements->onUpdate(timer->getTotalTime());
+    if (phase == MainStagePhase::Idle)
+    {
+        auto connector = Elements->find("startTitle");
+        if (connector and connector->isAnimeFinished())
+        {
+            Elements->removeElement("startTitle");
+            OpenCoreManagers::SFXManager.playSE(titleumi);
+        }
+    }
+}
+
+void MainStage::onRender() { Elements->onRender(); }
+
+bool MainStage::handlEvents(SDL_Event *event)
+{
+    Elements->handlEvents(*event, timer->getTotalTime());
+    return true;
+}
+
+bool MainStage::parseEvents(Event *event)
+{
+    SDL_Event lEvent = *event;
+    return handlEvents(&lEvent);
+}
+
+void MainStage::initializeComponents()
+{
+
     auto elem = Elements->find("startTitle");
     if (!elem)
     {
@@ -27,14 +75,21 @@ void MainStage::setupBackground()
         elem->Animate().Fade(1.0f, 0.0f, 5.0f).Commit();
     }
 
-    auto background =
-        UI<ImageBoard>("background_main", 0, background_main, 1, 1);
+    // 判断当前是否为晚上（18:00 ~ 06:00），切换夜景背景
+    std::time_t now = std::time(nullptr);
+    std::tm *localTime = std::localtime(&now);
+    int hour = localTime->tm_hour;
+    short bgTexID =
+        (hour >= 18 || hour < 6) ? background_main_night : background_main;
+
+    auto background = UI<ImageBoard>("background_main", 0, bgTexID, 1, 1);
 
     background->Configure()
         .Parent(nullptr)
         .Anchor(AnchorPoint::Center)
         .Posite(0.5f, 0.5f)
-        .Scale(1.0f, 1.0f)
+        .Scale(1.05f, 0.0f)
+        .Follow(20)
         .Sequence(true);
 
     Elements->PushElement(std::move(background));
@@ -68,10 +123,7 @@ void MainStage::setupBackground()
 
     Elements->PushElement(std::move(blackBarUp));
     Elements->PushElement(std::move(blackBarDown));
-}
 
-void MainStage::setupTitle()
-{
     auto MainTitle = UI<ImageBoard>("main_title", 2, title_main, 1, 1);
 
     MainTitle->Configure()
@@ -79,21 +131,19 @@ void MainStage::setupTitle()
         .Scale(0.4f, 0.0f)
         .Posite(0.0625f, 0.111f)
         .Alpha(0.0f)
+        .Follow(10)
         .Sequence(true);
 
     MainTitle->Animate()
         .Timer(5.0f)
         .SubStart(true)
-        ->Move(240, 160, 160, 160, 3.0f)
+        ->Move(180, 120, 120, 120, 3.0f)
         .Fade(0.0f, 1.0f, 3.0f)
         .SubEnd()
         .Commit();
 
     Elements->PushElement(std::move(MainTitle));
-}
 
-void MainStage::setupButtons()
-{
     // 创建按钮
 
     auto button_new = UI<Button>("newworld", 3, img_bunewworld, 1, 3);
@@ -105,43 +155,55 @@ void MainStage::setupButtons()
         .Anchor(AnchorPoint::TopRight)
         .Posite(0.94f, 0.55f)
         .Scale(0.0f, 0.06f)
-        .Sequence(false);
+        .Sequence(true);
 
     button_con->Configure()
         .Anchor(AnchorPoint::TopRight)
         .Posite(0.94f, 0.62f)
         .Scale(0.0f, 0.06f)
-        .Sequence(false);
+        .Sequence(true);
 
     button_set->Configure()
         .Anchor(AnchorPoint::TopRight)
         .Posite(0.94f, 0.69f)
         .Scale(0.0f, 0.06f)
-        .Sequence(false);
+        .Sequence(true);
 
     button_exit->Configure()
         .Anchor(AnchorPoint::TopRight)
         .Posite(0.94f, 0.76f)
         .Scale(0.0f, 0.06f)
-        .Sequence(false);
+        .Sequence(true);
 
     button_new->Animate()
-        .Move(1920, 600, 1800, 600, 3.0f)
+        .Timer(5.0f)
+        .SubStart(true)
+        ->Move(1920, 600, 1800, 600, 3.0f)
         .Fade(0.0f, 1.0f, 3.0f)
+        .SubEnd()
         .Commit();
 
     button_con->Animate()
-        .Move(1920, 900, 1800, 900, 3.0f)
+        .Timer(5.0f)
+        .SubStart(true)
+        ->Move(1920, 900, 1800, 900, 3.0f)
         .Fade(0.0f, 1.0f, 3.0f)
+        .SubEnd()
         .Commit();
     button_set->Animate()
-        .Move(1920, 750, 1800, 750, 3.0f)
+        .Timer(5.0f)
+        .SubStart(true)
+        ->Move(1920, 750, 1800, 750, 3.0f)
         .Fade(0.0f, 1.0f, 3.0f)
+        .SubEnd()
         .Commit();
 
     button_exit->Animate()
-        .Move(1920, 825, 1800, 825, 3.0f)
+        .Timer(5.0f)
+        .SubStart(true)
+        ->Move(1920, 825, 1800, 825, 3.0f)
         .Fade(0.0f, 1.0f, 3.0f)
+        .SubEnd()
         .Commit();
 
     Elements->PushElement(std::move(button_new));
@@ -157,55 +219,11 @@ void MainStage::setupButtons()
         .Scale(0.0f, 0.043f);
 
     copyright->Animate()
-        .Move(1920, 1035, 1865, 1035, 3.0f)
+        .Timer(5.0f)
+        .SubStart(true)
+        ->Move(1920, 1035, 1865, 1035, 3.0f)
         .Fade(0.0f, 1.0f, 3.0f)
+        .SubEnd()
         .Commit();
     Elements->PushElement(std::move(copyright));
-}
-
-void MainStage::onEnter()
-{
-    // 播放进入动画、BGM
-    OpenCoreManagers::SFXManager.stopBGM();
-    phase = MainStagePhase::Idle;
-
-    OpenCoreManagers::SFXManager.changeBGM(1003);
-    OpenCoreManagers::SFXManager.playBGM();
-
-    setupBackground();
-    setupTitle();
-}
-
-void MainStage::onExit()
-{
-    // 停止动画、音效
-}
-
-void MainStage::onUpdate()
-{
-    Elements->onUpdate(timer->getTotalTime());
-    if (phase == MainStagePhase::Idle)
-    {
-        auto connector = Elements->find("startTitle");
-        if (connector and connector->isAnimeFinished())
-        {
-            Elements->removeElement("startTitle");
-            OpenCoreManagers::SFXManager.playSE(titleumi);
-            setupButtons();
-        }
-    }
-}
-
-void MainStage::onRender() { Elements->onRender(); }
-
-bool MainStage::handlEvents(SDL_Event *event)
-{
-    Elements->handlEvents(*event, timer->getTotalTime());
-    return true;
-}
-
-bool MainStage::parseEvents(Event *event)
-{
-    SDL_Event lEvent = *event;
-    return handlEvents(&lEvent);
 }
