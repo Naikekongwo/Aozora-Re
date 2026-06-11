@@ -1,6 +1,8 @@
 [submodule "modules/OpenCore"]
 	path = modules/OpenCore
 	url = https://github.com/Naikekongwo/OpenCore.git
+	branch = main
 [submodule "modules/rapidjson"]
 	path = modules/rapidjson
 	url = https://github.com/Tencent/rapidjson.git
+	branch = master
