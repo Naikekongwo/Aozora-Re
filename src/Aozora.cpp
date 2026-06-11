@@ -12,7 +12,7 @@ bool Aozora::StartUp()
 
     if (!engine.Initialize())
     {
-        SDL_Log("Engine initialization was failed.");
+        LOG("Engine initialization was failed.");
         return false;
     }
 
@@ -21,7 +21,7 @@ bool Aozora::StartUp()
 
     auto AozoraInfo = std::make_unique<GameInfo>(
         "青空下的约定 Reimagined", 1, 0, true,
-        std::make_unique<PreloadStage>(timer, sController));
+        std::make_unique<PreloadStage>(timer, sController), 1920, 1080, false);
 
     engine.GameRegistry(std::move(AozoraInfo));
 
@@ -30,9 +30,9 @@ bool Aozora::StartUp()
         engine.MainLoop();
         engine.CleanUp();
     }
-    catch (std::exception e)
+    catch (const std::exception &e)
     {
-        SDL_Log("The engine exited with error : %s", e.what());
+        LOG("The engine exited with error : {}", e.what());
         return false;
     }
 

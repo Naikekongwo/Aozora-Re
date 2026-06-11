@@ -172,7 +172,7 @@ graph LR
 ##### Sample
 
 ```C++
-// #include "OpenCore/OpenCore.h"
+// #include "OpenCore.h"
 // #include <stdexcept>
 
 OpenEngine engine;
@@ -971,10 +971,10 @@ stageBG->setBakedTexture(true);
 
 在调用`setBakedTexture()`参数之后，控件的预烘焙属性被打开（这个属性默认关闭）。
 
-| 方法 | CPU延迟 | GPU延迟 | 总延迟 | 渲染调用次数 |
-| ---- | ---- | ---- | ---- | ---- |
-| 预烘焙纹理 | 0.1ms | 0.5ms | 0.6ms | 1 |
-| 实时计算渲染纹理 | 2ms | 1ms | 3ms | 9 |
+| 方法             | CPU延迟 | GPU延迟 | 总延迟 | 渲染调用次数 |
+| ---------------- | ------- | ------- | ------ | ------------ |
+| 预烘焙纹理       | 0.1ms   | 0.5ms   | 0.6ms  | 1            |
+| 实时计算渲染纹理 | 2ms     | 1ms     | 3ms    | 9            |
 
 >该方法基于`FHD分辨率(1920x1080)`下，渲染九宫格纹理实机测试得出。
 

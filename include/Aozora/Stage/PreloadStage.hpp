@@ -4,7 +4,7 @@
 #ifndef _PRELOADSTAGE_H_
 #define _PRELOADSTAGE_H_
 
-#include "OpenCore/World/Stage/StageManager.hpp"
+#include "World/Stage/StageManager.hpp"
 
 #include <future>
 
@@ -38,6 +38,10 @@ class PreloadStage : public Stage
     bool handlEvents(SDL_Event *event) override;
     void onUpdate() override;
     void onRender() override;
+
+    void initializeComponents() override {};
+
+    bool parseEvents(Event *event) override;
 
   protected:
     // 阶段状态机

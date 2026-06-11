@@ -1,15 +1,11 @@
-#include <SDL2/SDL_error.h>
 #include <cstdlib>
 #include <iostream>
-#include <stdexcept>
 
 // 引入内核
 #include "Aozora/Aozora.hpp"
 
 #include <cmath>
 const int WIDTH = 1920, HEIGHT = 1080;
-
-using namespace std;
 
 // 游戏入口
 int main(int argc, char *argv[])
@@ -18,7 +14,7 @@ int main(int argc, char *argv[])
 
     if (!game.StartUp())
     {
-        throw runtime_error("The game has exited with a bad return-value!");
+        LOG("游戏启动失败，请检查日志以获取详细信息。");
         return EXIT_FAILURE;
     }
 

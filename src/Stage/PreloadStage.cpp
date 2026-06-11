@@ -1,5 +1,6 @@
+#include "Aozora/Stage/PreloadStage.hpp"
 #include "Aozora/Aozora.hpp"
-#include "OpenCore/OpenCore.hpp"
+#include "OpenCore.hpp"
 
 PreloadStage::PreloadStage(Timer *timer, StageManager *sController)
 {
@@ -16,7 +17,7 @@ PreloadStage::PreloadStage(Timer *timer, StageManager *sController)
 // 生命周期安全：进入舞台时初始化资源
 void PreloadStage::onEnter()
 {
-    SDL_Log("PreloadStage: onEnter - starting resource load");
+    LOG("PreloadStage: onEnter - starting resource load");
 
     LoadingState = OpenCoreManagers::ResManager.LoadResourcesFromJson(10001);
 }
@@ -25,11 +26,11 @@ void PreloadStage::onEnter()
 void PreloadStage::onExit()
 {
     Elements->onDestroy();
-    SDL_Log("PreloadStage: onExit - cleared elements");
+    LOG("PreloadStage: onExit - cleared elements");
 }
 
 // 生命周期安全：彻底销毁
-void PreloadStage::onDestroy() { SDL_Log("PreloadStage: onDestroy"); }
+void PreloadStage::onDestroy() { LOG("PreloadStage: onDestroy"); }
 
 // 事件传递：顶层拦截
 bool PreloadStage::handlEvents(SDL_Event *event)
@@ -193,4 +194,10 @@ void PreloadStage::handleTitleSequence()
     default:
         break;
     }
+}
+
+bool PreloadStage::parseEvents(Event *event)
+{
+    SDL_Event lEvent = *event;
+    return handlEvents(&lEvent);
 }

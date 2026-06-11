@@ -1,5 +1,5 @@
 #include "Aozora/Aozora.hpp"
-#include "OpenCore/OpenCore.hpp"
+#include "OpenCore.hpp"
 #include <functional>
 #include <memory>
 
@@ -17,8 +17,15 @@ MainStage::MainStage(Timer *timer, StageManager *sController)
 void MainStage::setupBackground()
 {
     auto elem = Elements->find("startTitle");
-
-    elem->Animate().Fade(1.0f, 0.0f, 5.0f).Commit();
+    if (!elem)
+    {
+        LOG("MainStage::setupBackground() warning: 'startTitle' not found, "
+            "element transfer may have failed.");
+    }
+    else
+    {
+        elem->Animate().Fade(1.0f, 0.0f, 5.0f).Commit();
+    }
 
     auto background =
         UI<ImageBoard>("background_main", 0, background_main, 1, 1);
@@ -53,10 +60,10 @@ void MainStage::setupBackground()
         .Alpha(0.35f)
         .Sequence(true);
 
-    blackBarUp->Animate().Timer(5.0f).Move(1280, 0, 1280, 300, 3.0f).Commit();
+    blackBarUp->Animate().Timer(5.0f).Move(960, 0, 960, 225, 3.0f).Commit();
     blackBarDown->Animate()
         .Timer(5.0f)
-        .Move(1280, 1440, 1280, 1140, 3.0f)
+        .Move(960, 1080, 960, 855, 3.0f)
         .Commit();
 
     Elements->PushElement(std::move(blackBarUp));
@@ -119,21 +126,21 @@ void MainStage::setupButtons()
         .Sequence(false);
 
     button_new->Animate()
-        .Move(2560, 800, 2400, 800, 3.0f)
+        .Move(1920, 600, 1800, 600, 3.0f)
         .Fade(0.0f, 1.0f, 3.0f)
         .Commit();
 
     button_con->Animate()
-        .Move(2560, 900, 2400, 900, 3.0f)
+        .Move(1920, 900, 1800, 900, 3.0f)
         .Fade(0.0f, 1.0f, 3.0f)
         .Commit();
     button_set->Animate()
-        .Move(2560, 1000, 2400, 1000, 3.0f)
+        .Move(1920, 750, 1800, 750, 3.0f)
         .Fade(0.0f, 1.0f, 3.0f)
         .Commit();
 
     button_exit->Animate()
-        .Move(2560, 1100, 2400, 1100, 3.0f)
+        .Move(1920, 825, 1800, 825, 3.0f)
         .Fade(0.0f, 1.0f, 3.0f)
         .Commit();
 
@@ -150,7 +157,7 @@ void MainStage::setupButtons()
         .Scale(0.0f, 0.043f);
 
     copyright->Animate()
-        .Move(2560, 1381, 2487, 1381, 3.0f)
+        .Move(1920, 1035, 1865, 1035, 3.0f)
         .Fade(0.0f, 1.0f, 3.0f)
         .Commit();
     Elements->PushElement(std::move(copyright));
@@ -195,4 +202,10 @@ bool MainStage::handlEvents(SDL_Event *event)
 {
     Elements->handlEvents(*event, timer->getTotalTime());
     return true;
+}
+
+bool MainStage::parseEvents(Event *event)
+{
+    SDL_Event lEvent = *event;
+    return handlEvents(&lEvent);
 }

@@ -22,7 +22,7 @@
 
 #define font_normal 9001
 
-#include "OpenCore/OpenCore.hpp"
+#include "OpenCore.hpp"
 
 #include "Stage/MainStage.hpp"
 #include "Stage/PreloadStage.hpp"

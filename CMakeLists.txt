@@ -9,6 +9,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 file(GLOB_RECURSE SOURCE_FILES CONFIGURE_DEPENDS 
     "${CMAKE_SOURCE_DIR}/src/*.cpp" 
     "${CMAKE_SOURCE_DIR}/project/*.cpp"
+    "${CMAKE_SOURCE_DIR}/modules/OpenCore/src/*.cpp"
 )
 
 # 头文件目录
@@ -32,13 +33,8 @@ if(WIN32)
     set(SDL2_LIBRARIES mingw32 SDL2main SDL2 SDL2_mixer SDL2_ttf SDL2_image)
     target_link_libraries(${PROJECT_NAME} PRIVATE ${SDL2_LIBRARIES})
     
-    # 加上图标（即resources连接）
-    set(RESOURCE_OBJECT "${CMAKE_SOURCE_DIR}/resources/resource.o")
-    if(EXISTS ${RESOURCE_OBJECT})
-        target_link_libraries(${PROJECT_NAME} PRIVATE ${RESOURCE_OBJECT})
-    else()
-        message(WARNING "Resource object file not found: ${RESOURCE_OBJECT}")
-    endif()
+    # 使用 windres 编译 .rc 文件嵌入图标
+    target_sources(${PROJECT_NAME} PRIVATE "${CMAKE_SOURCE_DIR}/resources/resource.rc")
     
     # 拷贝 assets 文件夹到输出目录
     add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD

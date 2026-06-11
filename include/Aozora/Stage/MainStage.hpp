@@ -3,7 +3,7 @@
 #ifndef _MAINSTAGE_H_
 #define _MAINSTAGE_H_
 
-#include "OpenCore/World/Stage/StageManager.hpp"
+#include "World/Stage/StageManager.hpp"
 
 enum class MainStagePhase
 {
@@ -31,6 +31,8 @@ class MainStage : public OverlayStage
 
     void onUpdate() override;
     void onRender() override;
+
+    bool parseEvents(Event *event) override;
 
   private:
     MainStagePhase phase = MainStagePhase::Entering;
