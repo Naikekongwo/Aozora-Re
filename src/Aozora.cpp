@@ -1,4 +1,5 @@
 #include "Aozora/Aozora.hpp"
+#include "Aozora/Stage/PreloadStage.hpp"
 #include <exception>
 #include <memory>
 #include <stdexcept>
@@ -19,9 +20,18 @@ bool Aozora::StartUp()
     auto timer = engine.getTimer();
     auto sController = engine.getStageController();
 
-    auto AozoraInfo = std::make_unique<GameInfo>(
-        "青空下的约定 Reimagined", 1, 0, true,
-        std::make_unique<PreloadStage>(timer, sController), 1920, 1080, false);
+    GraphicsInfo gInfo = {1920, 1080, 144, false};
+
+    auto AozoraInfo = std::make_unique<GameInfo>();
+
+    AozoraInfo->gameName = "青空下的约定";
+    AozoraInfo->beta = true;
+    AozoraInfo->version_major = 0;
+    AozoraInfo->version_minor = 1;
+    AozoraInfo->entranceStage =
+        std::make_unique<PreloadStage>(timer, sController);
+
+    AozoraInfo->_graphicsInfo = gInfo;
 
     engine.GameRegistry(std::move(AozoraInfo));
 
