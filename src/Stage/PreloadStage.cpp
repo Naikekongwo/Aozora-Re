@@ -33,11 +33,11 @@ void PreloadStage::onExit()
 void PreloadStage::onDestroy() { LOG("PreloadStage: onDestroy"); }
 
 // 事件传递：顶层拦截
-bool PreloadStage::handlEvents(SDL_Event *event)
+bool PreloadStage::parseEvents(Event *event)
 {
     if (phase >= PreloadPhase::BuildLoadingUI)
     {
-        Elements->handlEvents(*event, timer->getTotalTime());
+        Elements->parseEvents(event, timer->getTotalTime());
     }
     return true; // 拦截所有事件
 }
@@ -190,10 +190,4 @@ void PreloadStage::handleTitleSequence()
     default:
         break;
     }
-}
-
-bool PreloadStage::parseEvents(Event *event)
-{
-    SDL_Event lEvent = *event;
-    return handlEvents(&lEvent);
 }

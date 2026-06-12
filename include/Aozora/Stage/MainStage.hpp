@@ -23,9 +23,6 @@ class MainStage : public OverlayStage
     // 构造函数
     MainStage(Timer *timer, StageManager *sController);
 
-    // 完成继承
-    bool handlEvents(SDL_Event *event) override;
-
     void onEnter() override;
     void onExit() override;
 

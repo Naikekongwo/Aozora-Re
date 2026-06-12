@@ -44,16 +44,10 @@ void MainStage::onUpdate()
 
 void MainStage::onRender() { Elements->onRender(); }
 
-bool MainStage::handlEvents(SDL_Event *event)
-{
-    Elements->handlEvents(*event, timer->getTotalTime());
-    return true;
-}
-
 bool MainStage::parseEvents(Event *event)
 {
-    SDL_Event lEvent = *event;
-    return handlEvents(&lEvent);
+    Elements->parseEvents(event, timer->getTotalTime());
+    return true;
 }
 
 void MainStage::initializeComponents()
@@ -150,24 +144,28 @@ void MainStage::initializeComponents()
         .Anchor(AnchorPoint::TopRight)
         .Posite(0.94f, 0.55f)
         .Scale(0.0f, 0.06f)
+        .Alpha(0.0f)
         .Sequence(true);
 
     button_con->Configure()
         .Anchor(AnchorPoint::TopRight)
         .Posite(0.94f, 0.62f)
         .Scale(0.0f, 0.06f)
+        .Alpha(0.0f)
         .Sequence(true);
 
     button_set->Configure()
         .Anchor(AnchorPoint::TopRight)
         .Posite(0.94f, 0.69f)
         .Scale(0.0f, 0.06f)
+        .Alpha(0.0f)
         .Sequence(true);
 
     button_exit->Configure()
         .Anchor(AnchorPoint::TopRight)
         .Posite(0.94f, 0.76f)
         .Scale(0.0f, 0.06f)
+        .Alpha(0.0f)
         .Sequence(true);
 
     button_new->Animate()
@@ -181,7 +179,7 @@ void MainStage::initializeComponents()
     button_con->Animate()
         .Timer(5.0f)
         .SubStart(true)
-        ->Move(1920, 900, 1800, 900, 3.0f)
+        ->Move(1920, 675, 1800, 675, 3.0f)
         .Fade(0.0f, 1.0f, 3.0f)
         .SubEnd()
         .Commit();
@@ -211,10 +209,12 @@ void MainStage::initializeComponents()
     copyright->Configure()
         .Anchor(AnchorPoint::BottomRight)
         .Posite(0.97f, 0.96f)
-        .Scale(0.0f, 0.043f);
+        .Scale(0.0f, 0.043f)
+        .Alpha(0.0f)
+        .Sequence(true);
 
     copyright->Animate()
-        .Timer(5.0f)
+        .Timer(8.0f)
         .SubStart(true)
         ->Move(1920, 1035, 1865, 1035, 3.0f)
         .Fade(0.0f, 1.0f, 3.0f)

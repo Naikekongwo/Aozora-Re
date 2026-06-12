@@ -35,7 +35,6 @@ class PreloadStage : public Stage
     void onDestroy() override;
 
     // 基类接口
-    bool handlEvents(SDL_Event *event) override;
     void onUpdate() override;
     void onRender() override;
 
