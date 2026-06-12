@@ -2,51 +2,29 @@ cmake_minimum_required(VERSION 3.12)
 
 project(Aozora LANGUAGES CXX)
 
-# ============================================================
-# C++
-# ============================================================
-
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# ============================================================
-# Sources
-# ============================================================
 
 file(GLOB_RECURSE SOURCE_FILES CONFIGURE_DEPENDS
     "${CMAKE_SOURCE_DIR}/src/*.cpp"
     "${CMAKE_SOURCE_DIR}/project/*.cpp"
-    "${CMAKE_SOURCE_DIR}/modules/OpenCore/src/*.cpp"
 )
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
-# ============================================================
-# Includes
-# ============================================================
+add_subdirectory(modules/OpenCore)
 
 target_include_directories(${PROJECT_NAME}
 PRIVATE
     "${CMAKE_SOURCE_DIR}/include"
-    "${CMAKE_SOURCE_DIR}/modules/rapidjson/include"
-    "${CMAKE_SOURCE_DIR}/modules/OpenCore/include"
 )
-
-# ============================================================
-# SDL3
-# ============================================================
 
 target_link_libraries(${PROJECT_NAME}
 PRIVATE
-    SDL3
-    SDL3_image
-    SDL3_ttf
+    OpenCore
 )
-
-# ============================================================
-# Windows
-# ============================================================
 
 if(WIN32)
 
@@ -73,10 +51,6 @@ if(WIN32)
     )
 
 endif()
-
-# ============================================================
-# PSP
-# ============================================================
 
 if(PSP)
 
@@ -115,10 +89,6 @@ if(PSP)
 
 endif()
 
-# ============================================================
-# Android / Termux
-# ============================================================
-
 if(ANDROID OR TERMUX)
 
     find_package(PkgConfig REQUIRED)
@@ -142,10 +112,6 @@ if(ANDROID OR TERMUX)
     )
 
 endif()
-
-# ============================================================
-# Build Message
-# ============================================================
 
 add_custom_command(
     TARGET ${PROJECT_NAME}
