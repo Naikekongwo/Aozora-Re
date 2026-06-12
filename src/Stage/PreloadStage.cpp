@@ -76,13 +76,9 @@ void PreloadStage::onUpdate()
         }
     }
 
-    // 4️⃣ 初始化音乐
+    // 4️⃣ 初始化（音频已移除）
     if (phase == PreloadPhase::InitAudio)
     {
-        auto &SFX = OpenCoreManagers::SFXManager;
-        SFX.loadBGM(1002);
-        SFX.playBGM();
-        SFX.setVolume(30);
         buildTitleAndWater();
         phase = PreloadPhase::ShowCoreIcon;
     }

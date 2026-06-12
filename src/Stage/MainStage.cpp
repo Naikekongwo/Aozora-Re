@@ -18,12 +18,7 @@ MainStage::MainStage(Timer *timer, StageManager *sController)
 
 void MainStage::onEnter()
 {
-    // 播放进入动画、BGM
-    OpenCoreManagers::SFXManager.stopBGM();
     phase = MainStagePhase::Idle;
-
-    OpenCoreManagers::SFXManager.changeBGM(1003);
-    OpenCoreManagers::SFXManager.playBGM();
 
     initializeComponents();
 }
@@ -42,7 +37,7 @@ void MainStage::onUpdate()
         if (connector and connector->isAnimeFinished())
         {
             Elements->removeElement("startTitle");
-            OpenCoreManagers::SFXManager.playSE(titleumi);
+            // 音频已移除
         }
     }
 }
