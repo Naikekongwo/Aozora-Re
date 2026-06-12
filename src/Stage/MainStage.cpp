@@ -18,8 +18,6 @@ MainStage::MainStage(Timer *timer, StageManager *sController)
 
 void MainStage::onEnter()
 {
-    phase = MainStagePhase::Idle;
-
     initializeComponents();
 }
 
@@ -31,15 +29,7 @@ void MainStage::onExit()
 void MainStage::onUpdate()
 {
     Elements->onUpdate(timer->getTotalTime());
-    if (phase == MainStagePhase::Idle)
-    {
-        auto connector = Elements->find("startTitle");
-        if (connector and connector->isAnimeFinished())
-        {
-            Elements->removeElement("startTitle");
-            // 音频已移除
-        }
-    }
+    pipeline.onUpdate(timer->getTotalTime());
 }
 
 void MainStage::onRender() { Elements->onRender(); }
@@ -221,4 +211,15 @@ void MainStage::initializeComponents()
         .SubEnd()
         .Commit();
     Elements->PushElement(std::move(copyright));
+
+    pipeline
+        // 等待 startTitle 淡出动画完成，然后移除
+        .next([this]() -> bool {
+            auto *title = Elements->find("startTitle");
+            return !title || title->isAnimeFinished();
+        })
+        .next([this]() -> bool {
+            Elements->removeElement("startTitle");
+            return true;
+        });
 }

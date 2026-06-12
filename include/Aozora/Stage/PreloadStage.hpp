@@ -8,54 +8,25 @@
 
 #include <future>
 
-enum class PreloadPhase
-{
-    // 预加载阶段的枚举类
-    WaitingForResource,
-    BuildLoadingUI,
-    WaitAnimation,
-    InitAudio,
-    ShowCoreIcon,
-    ShowGigaIcon,
-    WaitGiga,
-    Finished
-};
-
-class StageManager;
-class ElementManager;
-
 class PreloadStage : public Stage
 {
   public:
     PreloadStage(Timer *timer, StageManager *sController);
 
-    // 生命周期
     void onEnter() override;
     void onExit() override;
     void onDestroy() override;
 
-    // 基类接口
     void onUpdate() override;
     void onRender() override;
 
-    void initializeComponents() override {};
+    void initializeComponents() override;
 
     bool parseEvents(Event *event) override;
 
   protected:
-    // 阶段状态机
-    PreloadPhase phase;
-    bool pendingNextStage = false;
-
-    // 异步资源加载
     std::future<void> LoadingState;
 
-    // 内部辅助函数
-    void buildLoadingUI();
-    void buildTitleAndWater();
-    void handleTitleSequence();
-
-    // 构建元素引用
     Timer *timer;
     StageManager *sController;
 };

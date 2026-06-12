@@ -5,14 +5,6 @@
 
 #include "World/Stage/StageManager.hpp"
 
-enum class MainStagePhase
-{
-    Entering,
-    Idle,
-    Exposure,
-    Exiting
-};
-
 class StageManager;
 
 class ElementManager;
@@ -34,7 +26,6 @@ class MainStage : public OverlayStage
     void initializeComponents() override;
 
   private:
-    MainStagePhase phase = MainStagePhase::Entering;
 };
 
 #endif //_MAINSTAGE_H_
