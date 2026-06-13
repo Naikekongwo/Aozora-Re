@@ -16,10 +16,7 @@ MainStage::MainStage(Timer *timer, StageManager *sController)
     this->stageType = StageType::overlayStage;
 }
 
-void MainStage::onEnter()
-{
-    initializeComponents();
-}
+void MainStage::onEnter() { initializeComponents(); }
 
 void MainStage::onExit()
 {
@@ -83,7 +80,7 @@ void MainStage::initializeComponents()
         .Anchor(AnchorPoint::BottomCenter)
         .Posite(0.5f, 0.0f)
         .Scale(1.0f, 0.208f)
-        .Alpha(0.35f)
+        .Alpha(0.6f)
         .Sequence(true);
 
     blackBarDown->Configure()
@@ -91,7 +88,7 @@ void MainStage::initializeComponents()
         .Anchor(AnchorPoint::TopCenter)
         .Posite(0.5f, 1.0f)
         .Scale(1.0f, 0.208f)
-        .Alpha(0.35f)
+        .Alpha(0.5f)
         .Sequence(true);
 
     blackBarUp->Animate().Timer(5.0f).Move(960, 0, 960, 225, 3.0f).Commit();
@@ -214,12 +211,16 @@ void MainStage::initializeComponents()
 
     pipeline
         // 等待 startTitle 淡出动画完成，然后移除
-        .next([this]() -> bool {
-            auto *title = Elements->find("startTitle");
-            return !title || title->isAnimeFinished();
-        })
-        .next([this]() -> bool {
-            Elements->removeElement("startTitle");
-            return true;
-        });
+        .next(
+            [this]() -> bool
+            {
+                auto *title = Elements->find("startTitle");
+                return !title || title->isAnimeFinished();
+            })
+        .next(
+            [this]() -> bool
+            {
+                Elements->removeElement("startTitle");
+                return true;
+            });
 }
