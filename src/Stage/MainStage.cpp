@@ -1,6 +1,8 @@
 #include "Aozora/Stage/MainStage.hpp"
 #include "Aozora/Aozora.hpp"
 #include "OpenCore.hpp"
+#include "Runtime/Animation/IAnimation.hpp"
+#include "Runtime/Graphics/UI/ImageBoard.hpp"
 #include <ctime>
 #include <functional>
 #include <memory>
@@ -64,7 +66,7 @@ void MainStage::initializeComponents()
         .Parent(nullptr)
         .Anchor(AnchorPoint::Center)
         .Posite(0.5f, 0.5f)
-        .Scale(1.05f, 0.0f)
+        .Scale(1.0f, 0.0f)
         .Follow(20)
         .Sequence(true);
 
@@ -72,15 +74,14 @@ void MainStage::initializeComponents()
 
     // 上下遮罩
 
-    auto blackBarUp = UI<ImageBoard>("barUp", 1, blackbar, 1, 1);
-    auto blackBarDown = UI<ImageBoard>("barDown", 1, blackbar, 1, 1);
+    auto blackBarUp = UI<ImageBoard>("barUp", 1, 0, 1, 1);
+    auto blackBarDown = UI<ImageBoard>("barDown", 1, 0, 1, 1);
 
     blackBarUp->Configure()
         .Parent(nullptr)
         .Anchor(AnchorPoint::BottomCenter)
         .Posite(0.5f, 0.0f)
         .Scale(1.0f, 0.208f)
-        .Alpha(0.6f)
         .Sequence(true);
 
     blackBarDown->Configure()
@@ -88,8 +89,10 @@ void MainStage::initializeComponents()
         .Anchor(AnchorPoint::TopCenter)
         .Posite(0.5f, 1.0f)
         .Scale(1.0f, 0.208f)
-        .Alpha(0.5f)
         .Sequence(true);
+
+    blackBarUp->setBackgroundColor({0, 10, 82, 128});
+    blackBarDown->setBackgroundColor({0, 10, 82, 128});
 
     blackBarUp->Animate().Timer(5.0f).Move(960, 0, 960, 225, 3.0f).Commit();
     blackBarDown->Animate()
