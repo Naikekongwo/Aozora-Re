@@ -18,8 +18,8 @@ bool Aozora::StartUp()
     gInfo.nearestScaling = false;
     gInfo.resizable = false;
     gInfo.targetFrameRate = 144;
-    gInfo.resolutionWidth = 1920;
-    gInfo.resolutionHeight = 1080;
+    gInfo.resolutionWidth = 3840;
+    gInfo.resolutionHeight = 2160;
 
     ResourceInfo rInfo;
 

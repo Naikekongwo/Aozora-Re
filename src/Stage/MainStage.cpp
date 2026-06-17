@@ -88,10 +88,13 @@ void MainStage::initializeComponents()
     blackBarUp->setBackgroundColor({0, 10, 82, 128});
     blackBarDown->setBackgroundColor({0, 10, 82, 128});
 
-    blackBarUp->Animate().Timer(5.0f).Move(960, 0, 960, 225, 3.0f).Commit();
+    blackBarUp->Animate()
+        .Timer(5.0f)
+        .MoveR(0.5f, 0.0f, 0.5f, 0.2083f, 3.0f)
+        .Commit();
     blackBarDown->Animate()
         .Timer(5.0f)
-        .Move(960, 1080, 960, 855, 3.0f)
+        .MoveR(0.5f, 1.0f, 0.5f, 0.7917f, 3.0f)
         .Commit();
 
     Elements->PushElement(std::move(blackBarUp));
@@ -111,7 +114,7 @@ void MainStage::initializeComponents()
     MainTitle->Animate()
         .Timer(5.0f)
         .SubStart(true)
-        ->Move(180, 120, 120, 120, 3.0f)
+        ->MoveR(0.09375f, 0.1111f, 0.0625f, 0.1111f, 3.0f)
         .Fade(0.0f, 1.0f, 3.0f)
         .SubEnd()
         .Commit();
@@ -156,7 +159,7 @@ void MainStage::initializeComponents()
     button_new->Animate()
         .Timer(5.0f)
         .SubStart(true)
-        ->Move(1920, 600, 1800, 600, 3.0f)
+        ->MoveR(1.0f, 0.5556f, 0.9375f, 0.5556f, 3.0f)
         .Fade(0.0f, 1.0f, 3.0f)
         .SubEnd()
         .Commit();
@@ -164,14 +167,14 @@ void MainStage::initializeComponents()
     button_con->Animate()
         .Timer(5.0f)
         .SubStart(true)
-        ->Move(1920, 675, 1800, 675, 3.0f)
+        ->MoveR(1.0f, 0.625f, 0.9375f, 0.625f, 3.0f)
         .Fade(0.0f, 1.0f, 3.0f)
         .SubEnd()
         .Commit();
     button_set->Animate()
         .Timer(5.0f)
         .SubStart(true)
-        ->Move(1920, 750, 1800, 750, 3.0f)
+        ->MoveR(1.0f, 0.6944f, 0.9375f, 0.6944f, 3.0f)
         .Fade(0.0f, 1.0f, 3.0f)
         .SubEnd()
         .Commit();
@@ -179,7 +182,7 @@ void MainStage::initializeComponents()
     button_exit->Animate()
         .Timer(5.0f)
         .SubStart(true)
-        ->Move(1920, 825, 1800, 825, 3.0f)
+        ->MoveR(1.0f, 0.7639f, 0.9375f, 0.7639f, 3.0f)
         .Fade(0.0f, 1.0f, 3.0f)
         .SubEnd()
         .Commit();
@@ -201,7 +204,7 @@ void MainStage::initializeComponents()
     copyright->Animate()
         .Timer(8.0f)
         .SubStart(true)
-        ->Move(1920, 1035, 1865, 1035, 3.0f)
+        ->MoveR(1.0f, 0.9583f, 0.9714f, 0.9583f, 3.0f)
         .Fade(0.0f, 1.0f, 3.0f)
         .SubEnd()
         .Commit();
