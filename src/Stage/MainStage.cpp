@@ -7,7 +7,7 @@
 #include <functional>
 #include <memory>
 
-MainStage::MainStage(Timer *timer, StageManager *sController)
+MainStage::MainStage()
 {
     this->timer = timer;
 
@@ -42,10 +42,10 @@ bool MainStage::parseEvents(Event *event)
 void MainStage::initializeComponents()
 {
 
-    auto elem = Elements->find("startTitle");
+    auto elem = Elements->find("past");
     if (!elem)
     {
-        LOG("MainStage::setupBackground() warning: 'startTitle' not found, "
+        LOG("MainStage::setupBackground() warning: 'past' not found, "
             "element transfer may have failed.");
     }
     else
@@ -53,20 +53,14 @@ void MainStage::initializeComponents()
         elem->Animate().Fade(1.0f, 0.0f, 5.0f).Commit();
     }
 
-    // 判断当前是否为晚上（18:00 ~ 06:00），切换夜景背景
-    std::time_t now = std::time(nullptr);
-    std::tm *localTime = std::localtime(&now);
-    int hour = localTime->tm_hour;
-    short bgTexID =
-        (hour >= 18 || hour < 6) ? background_main_night : background_main;
-
-    auto background = UI<ImageBoard>("background_main", 0, bgTexID, 1, 1);
+    auto background =
+        UI<ImageBoard>("background_main", 0, "menu_daytime", 1, 1);
 
     background->Configure()
         .Parent(nullptr)
         .Anchor(AnchorPoint::Center)
         .Posite(0.5f, 0.5f)
-        .Scale(1.0f, 0.0f)
+        .Scale(1.0f, 1.0f)
         .Follow(20)
         .Sequence(true);
 
@@ -74,8 +68,8 @@ void MainStage::initializeComponents()
 
     // 上下遮罩
 
-    auto blackBarUp = UI<ImageBoard>("barUp", 1, 0, 1, 1);
-    auto blackBarDown = UI<ImageBoard>("barDown", 1, 0, 1, 1);
+    auto blackBarUp = UI<ImageBoard>("barUp", 1, "", 1, 1);
+    auto blackBarDown = UI<ImageBoard>("barDown", 1, "", 1, 1);
 
     blackBarUp->Configure()
         .Parent(nullptr)
@@ -103,7 +97,8 @@ void MainStage::initializeComponents()
     Elements->PushElement(std::move(blackBarUp));
     Elements->PushElement(std::move(blackBarDown));
 
-    auto MainTitle = UI<ImageBoard>("main_title", 2, title_main, 1, 1);
+    auto MainTitle =
+        UI<ImageBoard>("main_title", 2, "HD_Logo_Transparent", 1, 1);
 
     MainTitle->Configure()
         .Anchor(AnchorPoint::TopLeft)
@@ -125,10 +120,10 @@ void MainStage::initializeComponents()
 
     // 创建按钮
 
-    auto button_new = UI<Button>("newworld", 3, img_bunewworld, 1, 3);
-    auto button_con = UI<Button>("continue", 3, img_bucontinue, 1, 3);
-    auto button_set = UI<Button>("settings", 3, img_busettings, 1, 3);
-    auto button_exit = UI<Button>("exit", 3, img_buexit, 1, 3);
+    auto button_new = UI<Button>("newworld", 3, "button_newworld", 1, 3);
+    auto button_con = UI<Button>("continue", 3, "button_continue", 1, 3);
+    auto button_set = UI<Button>("settings", 3, "button_settings", 1, 3);
+    auto button_exit = UI<Button>("exit", 3, "button_exit", 1, 3);
 
     button_new->Configure()
         .Anchor(AnchorPoint::TopRight)
@@ -194,7 +189,7 @@ void MainStage::initializeComponents()
     Elements->PushElement(std::move(button_set));
     Elements->PushElement(std::move(button_exit));
 
-    auto copyright = UI<ImageBoard>("Copyright", 3, icon_copyright, 1, 1);
+    auto copyright = UI<ImageBoard>("Copyright", 3, "icon_copyright", 1, 1);
 
     copyright->Configure()
         .Anchor(AnchorPoint::BottomRight)

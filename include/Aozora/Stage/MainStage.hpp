@@ -13,7 +13,7 @@ class MainStage : public OverlayStage
 {
   public:
     // 构造函数
-    MainStage(Timer *timer, StageManager *sController);
+    MainStage();
 
     void onEnter() override;
     void onExit() override;

@@ -11,7 +11,7 @@
 class PreloadStage : public Stage
 {
   public:
-    PreloadStage(Timer *timer, StageManager *sController);
+    PreloadStage();
 
     void onEnter() override;
     void onExit() override;
@@ -25,10 +25,6 @@ class PreloadStage : public Stage
     bool parseEvents(Event *event) override;
 
   protected:
-    std::future<void> LoadingState;
-
-    Timer *timer;
-    StageManager *sController;
 };
 
 #endif //_PRELOADSTAGE_H_
