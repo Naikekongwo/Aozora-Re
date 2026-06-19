@@ -4,7 +4,7 @@
 
 PreloadStage::PreloadStage()
 {
-    this->timer = timer;
+    this->timer       = timer;
     this->sController = sController;
 
     this->stageType = StageType::overlayStage;
@@ -95,7 +95,7 @@ void PreloadStage::initializeComponents()
             [this]() -> bool
             {
                 auto *loadtag = Elements->find("loadtag");
-                auto *title = Elements->find("startTitle");
+                auto *title   = Elements->find("startTitle");
                 return (!loadtag || loadtag->isAnimeFinished()) && title &&
                        title->isAnimeFinished();
             })
@@ -105,8 +105,8 @@ void PreloadStage::initializeComponents()
                 auto *title = Elements->find("startTitle");
                 title->changeTexture(
                     OpenEngine::getInstance()
-                        .getTextureMetaManager()
-                        ->registerTexture({"icon_giga", 1, 1}));
+                        .getPackageManager()
+                        ->getTextureObject({"icon_giga", 1, 1}));
                 title->Configure().Scale(0.229f, 0.0f).Alpha(1.0f);
                 title->setSequential(true);
                 title->Animate().Timer(3.0f).Commit();
