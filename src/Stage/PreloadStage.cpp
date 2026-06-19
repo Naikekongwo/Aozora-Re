@@ -107,7 +107,7 @@ void PreloadStage::initializeComponents()
                     OpenEngine::getInstance()
                         .getTextureMetaManager()
                         ->registerTexture({"icon_giga", 1, 1}));
-                title->Configure().Scale(1.0f, 0.0f).Alpha(1.0f);
+                title->Configure().Scale(0.229f, 0.0f).Alpha(1.0f);
                 title->setSequential(true);
                 title->Animate().Timer(3.0f).Commit();
                 Elements->removeElement("loadtag");
@@ -123,12 +123,6 @@ void PreloadStage::initializeComponents()
             [this]() -> bool
             {
                 auto *title = Elements->find("startTitle");
-                title->changeTexture(
-                    OpenEngine::getInstance()
-                        .getTextureMetaManager()
-                        ->registerTexture({"icon_giga", 1, 1}));
-                title->Configure().Scale(1.0f, 0.0f);
-                title->setSequential(true);
                 title->Animate().Timer(3.0f).Commit();
                 return true;
             })
