@@ -68,7 +68,7 @@ void MainStage::initializeComponents()
 
     // 上下遮罩
 
-    auto blackBarUp = UI<ImageBoard>("barUp", 1, "", 1, 1);
+    auto blackBarUp   = UI<ImageBoard>("barUp", 1, "", 1, 1);
     auto blackBarDown = UI<ImageBoard>("barDown", 1, "", 1, 1);
 
     blackBarUp->Configure()
@@ -85,8 +85,8 @@ void MainStage::initializeComponents()
         .Scale(1.0f, 0.208f)
         .Sequence(true);
 
-    blackBarUp->setBackgroundColor({0, 10, 82, 128});
-    blackBarDown->setBackgroundColor({0, 10, 82, 128});
+    blackBarUp->setBackgroundColor({0.0f, 0.03921568f, 0.3215686f, 0.5f});
+    blackBarDown->setBackgroundColor({0.0f, .03921568f, .3215686f, 0.5f});
 
     blackBarUp->Animate()
         .Timer(5.0f)
@@ -123,9 +123,9 @@ void MainStage::initializeComponents()
 
     // 创建按钮
 
-    auto button_new = UI<Button>("newworld", 3, "button_newworld", 1, 3);
-    auto button_con = UI<Button>("continue", 3, "button_continue", 1, 3);
-    auto button_set = UI<Button>("settings", 3, "button_settings", 1, 3);
+    auto button_new  = UI<Button>("newworld", 3, "button_newworld", 1, 3);
+    auto button_con  = UI<Button>("continue", 3, "button_continue", 1, 3);
+    auto button_set  = UI<Button>("settings", 3, "button_settings", 1, 3);
     auto button_exit = UI<Button>("exit", 3, "button_exit", 1, 3);
 
     button_new->Configure()
