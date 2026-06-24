@@ -156,6 +156,11 @@ void MainStage::initializeComponents()
         .Alpha(0.0f)
         .Sequence(true);
 
+    button_new->setBackgroundColor({0.0f, 0.0f, 1.0f, 1.0f});
+    button_con->setBackgroundColor({0.0f, 0.0f, 1.0f, 1.0f});
+    button_set->setBackgroundColor({0.0f, 0.0f, 1.0f, 1.0f});
+    button_exit->setBackgroundColor({0.0f, 0.0f, 1.0f, 1.0f});
+
     button_new->Animate()
         .Timer(5.0f)
         .SubStart(true)
@@ -200,6 +205,8 @@ void MainStage::initializeComponents()
         .Scale(0.0f, 0.043f)
         .Alpha(0.0f)
         .Sequence(true);
+
+    copyright->setBackgroundColor({0.0f, 0.0f, 1.0f, 1.0f});
 
     copyright->Animate()
         .Timer(8.0f)
