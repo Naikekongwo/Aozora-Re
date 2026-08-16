@@ -59,8 +59,8 @@ void MainStage::initializeComponents()
     background->Configure()
         .Parent(nullptr)
         .Anchor(AnchorPoint::Center)
-        .Posite(0.5f, 0.5f)
-        .Scale(1.0f, 1.0f)
+        .PositeR(0.5f, 0.5f)
+        .ScaleR(1.0f, 1.0f)
         .Follow(20)
         .Sequence(true);
 
@@ -74,15 +74,15 @@ void MainStage::initializeComponents()
     blackBarUp->Configure()
         .Parent(nullptr)
         .Anchor(AnchorPoint::BottomCenter)
-        .Posite(0.5f, 0.0f)
-        .Scale(1.0f, 0.208f)
+        .PositeR(0.5f, 0.0f)
+        .ScaleR(1.0f, 0.208f)
         .Sequence(true);
 
     blackBarDown->Configure()
         .Parent(nullptr)
         .Anchor(AnchorPoint::TopCenter)
-        .Posite(0.5f, 1.0f)
-        .Scale(1.0f, 0.208f)
+        .PositeR(0.5f, 1.0f)
+        .ScaleR(1.0f, 0.208f)
         .Sequence(true);
 
     blackBarUp->setBackgroundColor({0.0f, 0.03921568f, 0.3215686f, 0.5f});
@@ -105,8 +105,8 @@ void MainStage::initializeComponents()
 
     MainTitle->Configure()
         .Anchor(AnchorPoint::TopLeft)
-        .Scale(0.4f, 0.0f)
-        .Posite(0.0625f, 0.111f)
+        .ScaleR(0.4f, 0.0f)
+        .PositeR(0.0625f, 0.111f)
         .Alpha(0.0f)
         .Follow(10)
         .Sequence(true);
@@ -130,29 +130,29 @@ void MainStage::initializeComponents()
 
     button_new->Configure()
         .Anchor(AnchorPoint::TopRight)
-        .Posite(0.94f, 0.55f)
-        .Scale(0.0f, 0.06f)
+        .PositeR(0.94f, 0.55f)
+        .ScaleR(0.0f, 0.06f)
         .Alpha(0.0f)
         .Sequence(true);
 
     button_con->Configure()
         .Anchor(AnchorPoint::TopRight)
-        .Posite(0.94f, 0.62f)
-        .Scale(0.0f, 0.06f)
+        .PositeR(0.94f, 0.62f)
+        .ScaleR(0.0f, 0.06f)
         .Alpha(0.0f)
         .Sequence(true);
 
     button_set->Configure()
         .Anchor(AnchorPoint::TopRight)
-        .Posite(0.94f, 0.69f)
-        .Scale(0.0f, 0.06f)
+        .PositeR(0.94f, 0.69f)
+        .ScaleR(0.0f, 0.06f)
         .Alpha(0.0f)
         .Sequence(true);
 
     button_exit->Configure()
         .Anchor(AnchorPoint::TopRight)
-        .Posite(0.94f, 0.76f)
-        .Scale(0.0f, 0.06f)
+        .PositeR(0.94f, 0.76f)
+        .ScaleR(0.0f, 0.06f)
         .Alpha(0.0f)
         .Sequence(true);
 
@@ -201,8 +201,8 @@ void MainStage::initializeComponents()
 
     copyright->Configure()
         .Anchor(AnchorPoint::BottomRight)
-        .Posite(0.97f, 0.96f)
-        .Scale(0.0f, 0.043f)
+        .PositeR(0.97f, 0.96f)
+        .ScaleR(0.0f, 0.043f)
         .Alpha(0.0f)
         .Sequence(true);
 

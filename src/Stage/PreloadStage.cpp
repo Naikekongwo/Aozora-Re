@@ -62,8 +62,8 @@ void PreloadStage::initializeComponents()
                 loadingTag->Configure()
                     .Parent(nullptr)
                     .Anchor(AnchorPoint::BottomRight)
-                    .Posite(1.0f, 1.0f)
-                    .Scale(0.0f, 0.3f);
+                    .PositeR(1.0f, 1.0f)
+                    .ScaleR(0.0f, 0.3f);
                 loadingTag->Animate().Timer(2.0f).Commit();
                 Elements->PushElement(std::move(loadingTag));
                 return true;
@@ -82,9 +82,9 @@ void PreloadStage::initializeComponents()
                 auto startTitle =
                     UI<ImageBoard>("startTitle", 9, "icon_opencore", 1, 1);
                 startTitle->Configure()
-                    .Scale(0.52f, 0.46f)
+                    .ScaleR(0.52f, 0.46f)
                     .Anchor(AnchorPoint::Center)
-                    .Posite(0.5f, 0.5f)
+                    .PositeR(0.5f, 0.5f)
                     .Sequence(true)
                     .Alpha(1.0f);
                 startTitle->Animate().Timer(3.0f).Commit();
@@ -107,7 +107,7 @@ void PreloadStage::initializeComponents()
                     OpenEngine::getInstance()
                         .getPackageManager()
                         ->getTextureObject({"icon_giga", 1, 1}));
-                title->Configure().Scale(0.229f, 0.0f).Alpha(1.0f);
+                title->Configure().ScaleR(0.229f, 0.0f).Alpha(1.0f);
                 title->setSequential(true);
                 title->Animate().Timer(3.0f).Commit();
                 Elements->removeElement("loadtag");
@@ -142,8 +142,8 @@ void PreloadStage::initializeComponents()
                 past->Configure()
                     .Parent(nullptr)
                     .Anchor(AnchorPoint::Center)
-                    .Posite(0.5f, 0.5f)
-                    .Scale(1.0f, 1.0f)
+                    .PositeR(0.5f, 0.5f)
+                    .ScaleR(1.0f, 1.0f)
                     .Sequence(true);
 
                 Elements->PushElement(std::move(past));
