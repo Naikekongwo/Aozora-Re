@@ -1,6 +1,7 @@
-#include "Aozora/Stage/MainStage.hpp"
 #include "Aozora/Stage/PreloadStage.hpp"
+#include "Aozora/Stage/MainStage.hpp"
 #include "OpenCore.hpp"
+
 
 PreloadStage::PreloadStage() : Stage(overlayStage) {}
 
