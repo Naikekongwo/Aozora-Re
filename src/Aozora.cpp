@@ -43,7 +43,7 @@ bool Aozora::StartUp()
 
     if (!engine.Initialize())
     {
-        LOG("Engine initialization was failed.");
+        LOG("引擎初始化失败");
         return false;
     }
 
@@ -72,7 +72,7 @@ bool Aozora::StartUp()
     }
     catch (const std::exception &e)
     {
-        LOG("The engine exited with error : {}", e.what());
+        LOG("引擎异常退出: {}", e.what());
         return false;
     }
 

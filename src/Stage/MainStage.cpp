@@ -1,29 +1,17 @@
 #include "Aozora/Stage/MainStage.hpp"
-#include "Aozora/Aozora.hpp"
 #include "OpenCore.hpp"
-#include "Runtime/Animation/IAnimation.hpp"
 #include "Runtime/Graphics/UI/ImageBoard.hpp"
-#include <ctime>
-#include <functional>
 #include <memory>
 
-MainStage::MainStage()
+namespace
 {
-    this->timer = timer;
-
-    this->sController = sController;
-
-    Elements = std::make_unique<ElementManager>();
-
-    this->stageType = StageType::overlayStage;
-}
+// 上下遮罩色（信箱式黑边）
+const Color kLetterBoxColor{0.0f, 0.03921568f, 0.3215686f, 0.5f};
+// 调试用占位色（待替换为真实素材后移除）
+const Color kDebugTint{0.0f, 0.0f, 1.0f, 1.0f};
+} // namespace
 
 void MainStage::onEnter() { initializeComponents(); }
-
-void MainStage::onExit()
-{
-    // 停止动画、音效
-}
 
 void MainStage::onUpdate()
 {
@@ -41,12 +29,10 @@ bool MainStage::parseEvents(Event *event)
 
 void MainStage::initializeComponents()
 {
-
     auto elem = Elements->find("past");
     if (!elem)
     {
-        LOG("MainStage::setupBackground() warning: 'past' not found, "
-            "element transfer may have failed.");
+        LOG("找不到 'past' 元素，元素转移可能失败");
     }
     else
     {
@@ -85,8 +71,8 @@ void MainStage::initializeComponents()
         .ScaleR(1.0f, 0.208f)
         .Sequence(true);
 
-    blackBarUp->setBackgroundColor({0.0f, 0.03921568f, 0.3215686f, 0.5f});
-    blackBarDown->setBackgroundColor({0.0f, .03921568f, .3215686f, 0.5f});
+    blackBarUp->setBackgroundColor(kLetterBoxColor);
+    blackBarDown->setBackgroundColor(kLetterBoxColor);
 
     blackBarUp->Animate()
         .Timer(5.0f)
@@ -156,10 +142,10 @@ void MainStage::initializeComponents()
         .Alpha(0.0f)
         .Sequence(true);
 
-    button_new->setBackgroundColor({0.0f, 0.0f, 1.0f, 1.0f});
-    button_con->setBackgroundColor({0.0f, 0.0f, 1.0f, 1.0f});
-    button_set->setBackgroundColor({0.0f, 0.0f, 1.0f, 1.0f});
-    button_exit->setBackgroundColor({0.0f, 0.0f, 1.0f, 1.0f});
+    button_new->setBackgroundColor(kDebugTint);
+    button_con->setBackgroundColor(kDebugTint);
+    button_set->setBackgroundColor(kDebugTint);
+    button_exit->setBackgroundColor(kDebugTint);
 
     button_new->Animate()
         .Timer(5.0f)
@@ -206,7 +192,7 @@ void MainStage::initializeComponents()
         .Alpha(0.0f)
         .Sequence(true);
 
-    copyright->setBackgroundColor({0.0f, 0.0f, 1.0f, 1.0f});
+    copyright->setBackgroundColor(kDebugTint);
 
     copyright->Animate()
         .Timer(8.0f)

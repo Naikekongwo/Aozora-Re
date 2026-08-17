@@ -6,8 +6,6 @@
 
 #include "World/Stage/StageManager.hpp"
 
-#include <future>
-
 class PreloadStage : public Stage
 {
   public:

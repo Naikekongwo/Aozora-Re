@@ -5,18 +5,10 @@
 
 #include "World/Stage/StageManager.hpp"
 
-class StageManager;
-
-class ElementManager;
-
 class MainStage : public OverlayStage
 {
   public:
-    // 构造函数
-    MainStage();
-
     void onEnter() override;
-    void onExit() override;
 
     void onUpdate() override;
     void onRender() override;

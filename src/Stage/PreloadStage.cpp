@@ -1,33 +1,14 @@
+#include "Aozora/Stage/MainStage.hpp"
 #include "Aozora/Stage/PreloadStage.hpp"
-#include "Aozora/Aozora.hpp"
 #include "OpenCore.hpp"
 
-PreloadStage::PreloadStage()
-{
-    this->timer       = timer;
-    this->sController = sController;
+PreloadStage::PreloadStage() : Stage(overlayStage) {}
 
-    this->stageType = StageType::overlayStage;
+void PreloadStage::onEnter() { initializeComponents(); }
 
-    Elements = std::make_unique<ElementManager>();
-}
+void PreloadStage::onExit() { Elements->onDestroy(); }
 
-void PreloadStage::onEnter()
-{
-    LOG("PreloadStage: onEnter - starting resource load");
-    initializeComponents();
-}
-
-void PreloadStage::onExit()
-{
-    Elements->onDestroy();
-    LOG("PreloadStage: onExit - cleared elements");
-}
-
-void PreloadStage::onDestroy()
-{
-    LOG("PreloadStage: onDestroy - transitioning to MainStage");
-}
+void PreloadStage::onDestroy() {}
 
 bool PreloadStage::parseEvents(Event *event)
 {

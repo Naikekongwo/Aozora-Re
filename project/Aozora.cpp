@@ -1,11 +1,7 @@
 #include <cstdlib>
-#include <iostream>
 
 // 引入内核
 #include "Aozora/Aozora.hpp"
-
-#include <cmath>
-const int WIDTH = 1920, HEIGHT = 1080;
 
 // 游戏入口
 int main(int argc, char *argv[])
