@@ -116,9 +116,9 @@ endif()
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION .)
 install(DIRECTORY "${CMAKE_SOURCE_DIR}/assets/" DESTINATION .)
 
-set(EXPORT_DIR "${CMAKE_SOURCE_DIR}/build/export")
+set(EXPORT_DIR "${CMAKE_SOURCE_DIR}/build/release")
 
-add_custom_target(export
+add_custom_target(EXTRACT
     COMMAND ${CMAKE_COMMAND} -E echo ""
     COMMAND ${CMAKE_COMMAND} -E echo "Exporting game to ${EXPORT_DIR}"
     COMMAND ${CMAKE_COMMAND} -E echo ""
