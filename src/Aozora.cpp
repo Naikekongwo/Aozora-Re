@@ -14,23 +14,24 @@ bool Aozora::StartUp()
 
     GraphicsInfo gInfo;
 
-    gInfo.keepRatio = true;
-    gInfo.nearestScaling = false;
-    gInfo.resizable = false;
-    gInfo.targetFrameRate = 144;
-    gInfo.resolutionWidth = 3840;
+    gInfo.keepRatio        = true;
+    gInfo.nearestScaling   = false;
+    gInfo.resizable        = false;
+    gInfo.targetFrameRate  = 144;
+    gInfo.resolutionWidth  = 3840;
     gInfo.resolutionHeight = 2160;
 
     ResourceInfo rInfo;
 
     rInfo.keepStructureWhenPackaging = true;
-    rInfo.packageOnly = false;
-    rInfo.textureResampleFactor = 1.0f;
+    rInfo.packageOnly                = false;
+    rInfo.textureResampleFactor      = 1.0f;
 
     auto AozoraInfo = std::make_unique<GameInfo>();
 
-    AozoraInfo->gameName = "青空下的约定";
-    AozoraInfo->beta = true;
+    AozoraInfo->gameName      = "青空下的约定 Reimagined Version";
+    AozoraInfo->gameCode      = "AOZORA";
+    AozoraInfo->beta          = true;
     AozoraInfo->version_major = 0;
     AozoraInfo->version_minor = 1;
     AozoraInfo->entranceStage = std::make_unique<PreloadStage>();
