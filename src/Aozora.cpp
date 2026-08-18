@@ -56,13 +56,14 @@ bool Aozora::StartUp()
         {RscTexture, "menu_daytime", "assets/backgrounds/menu_daytime.png"},
         {RscTexture, "HD_Logo_Transparent",
          "assets/ui/HD_Logo_Transparent.png"},
-        {RscTexture, "icon_copyright", "assets/ui/icon_copyright.png"},
-        {RscTexture, "button_newworld", "assets/ui/button_newworld.png"},
-        {RscTexture, "button_continue", "assets/ui/button_continue.png"},
-        {RscTexture, "button_settings", "assets/ui/button_settings.png"},
-        {RscTexture, "button_exit", "assets/ui/button_exit.png"},
         {RscTexture, "menu_nighttime", "assets/backgrounds/menu_nighttime.png"},
         {RscFont, "OpenCoreFont", "assets/ui/font/OpenCoreFont.ttf"},
+        {RscFont, "AozoraFont", "assets/ui/font/AozoraFont.ttc"},
+        {RscAudio, "bgm_oceanwaves", "assets/audio/bgm_oceanwaves.mp3"},
+        {RscAudio, "bgm_seawave1", "assets/audio/bgm_seawave1.mp3"},
+        {RscAudio, "bgm_seawave2", "assets/audio/bgm_seawave2.mp3"},
+        {RscAudio, "fx_birdopen", "assets/audio/fx_birdopen.mp3"},
+        {RscAudio, "TitleUmi", "assets/audio/TitleUmi.mp3"},
     });
 
     try

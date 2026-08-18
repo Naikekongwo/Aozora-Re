@@ -1,6 +1,9 @@
 #include "Aozora/Stage/MainStage.hpp"
+#include "Core/Math/OpenCore_Color.hpp"
 #include "OpenCore.hpp"
 #include "Runtime/Graphics/UI/ImageBoard.hpp"
+#include "Runtime/Graphics/UI/TextArea.hpp"
+#include "Runtime/Graphics/UI/TextButton.hpp"
 #include <memory>
 
 namespace
@@ -107,45 +110,81 @@ void MainStage::initializeComponents()
 
     Elements->PushElement(std::move(MainTitle));
 
-    // 创建按钮
+    // 创建按钮（实时渲染文字按钮，统一宽度 0.18 父宽、高度 0.06 父高）
 
-    auto button_new  = UI<Button>("newworld", 3, "button_newworld", 1, 3);
-    auto button_con  = UI<Button>("continue", 3, "button_continue", 1, 3);
-    auto button_set  = UI<Button>("settings", 3, "button_settings", 1, 3);
-    auto button_exit = UI<Button>("exit", 3, "button_exit", 1, 3);
+    auto button_new  = UI<TextButton>("newworld", 3, "從最初開始", 0, 0);
+    auto button_con  = UI<TextButton>("continue", 3, "繼續遊戲", 0, 0);
+    auto button_set  = UI<TextButton>("settings", 3, "設置", 0, 0);
+    auto button_exit = UI<TextButton>("exit", 3, "退出", 0, 0);
+
+    // 统一使用 AozoraFont 字体，启用描边/渐变/阴影（悬停/按下仅覆盖颜色）
+    const auto applyButtonFont = [](TextButton *btn)
+    {
+        TextAttribute fontAttr;
+        fontAttr.option = static_cast<TextRenderOption>(
+            RENDER_TEXT | RENDER_SHADOW | RENDER_GRADIENT | RENDER_BORDER);
+        fontAttr.fontName = "AozoraFont";
+        fontAttr.gradientColor =
+            Color(120.0f / 255.0f, 229.0f / 255.0f, 236.0f / 255.0f, 1.0f);
+        fontAttr.color = Color(1.0f, 1.0f, 1.0f, 1.0f);
+        fontAttr.borderColor =
+            Color(0.0f, 67.0f / 255.0f, 124.0f / 255.0f, 1.0f);
+        fontAttr.borderSize     = 2;
+        fontAttr.shadowOffset   = {5, 5};
+        fontAttr.shadowGradient = true;
+        btn->setNormalAttribute(fontAttr);
+    };
+
+    TextAttribute copyrightAttr;
+    copyrightAttr.option = static_cast<TextRenderOption>(
+        RENDER_TEXT | RENDER_SHADOW | RENDER_GRADIENT | RENDER_BORDER);
+    copyrightAttr.fontName = "OpenCoreFont";
+    copyrightAttr.gradientColor =
+        Color(120.0f / 255.0f, 229.0f / 255.0f, 236.0f / 255.0f, 1.0f);
+    copyrightAttr.color = Color(1.0f, 1.0f, 1.0f, 1.0f);
+    copyrightAttr.borderColor =
+        Color(0.0f, 67.0f / 255.0f, 124.0f / 255.0f, 1.0f);
+    copyrightAttr.borderSize     = 2;
+    copyrightAttr.shadowOffset   = {5, 5};
+    copyrightAttr.shadowGradient = true;
+
+    applyButtonFont(button_new.get());
+    applyButtonFont(button_con.get());
+    applyButtonFont(button_set.get());
+    applyButtonFont(button_exit.get());
 
     button_new->Configure()
         .Anchor(AnchorPoint::TopRight)
         .PositeR(0.94f, 0.55f)
-        .ScaleR(0.0f, 0.06f)
+        .ScaleR(0.18f, 0.06f)
         .Alpha(0.0f)
         .Sequence(true);
 
     button_con->Configure()
         .Anchor(AnchorPoint::TopRight)
         .PositeR(0.94f, 0.62f)
-        .ScaleR(0.0f, 0.06f)
+        .ScaleR(0.18f, 0.06f)
         .Alpha(0.0f)
         .Sequence(true);
 
     button_set->Configure()
         .Anchor(AnchorPoint::TopRight)
         .PositeR(0.94f, 0.69f)
-        .ScaleR(0.0f, 0.06f)
+        .ScaleR(0.18f, 0.06f)
         .Alpha(0.0f)
         .Sequence(true);
 
     button_exit->Configure()
         .Anchor(AnchorPoint::TopRight)
         .PositeR(0.94f, 0.76f)
-        .ScaleR(0.0f, 0.06f)
+        .ScaleR(0.18f, 0.06f)
         .Alpha(0.0f)
         .Sequence(true);
 
-    button_new->setBackgroundColor(kDebugTint);
-    button_con->setBackgroundColor(kDebugTint);
-    button_set->setBackgroundColor(kDebugTint);
-    button_exit->setBackgroundColor(kDebugTint);
+    // button_new->setBackgroundColor(kDebugTint);
+    // button_con->setBackgroundColor(kDebugTint);
+    // button_set->setBackgroundColor(kDebugTint);
+    // button_exit->setBackgroundColor(kDebugTint);
 
     button_new->Animate()
         .Timer(5.0f)
@@ -183,16 +222,20 @@ void MainStage::initializeComponents()
     Elements->PushElement(std::move(button_set));
     Elements->PushElement(std::move(button_exit));
 
-    auto copyright = UI<ImageBoard>("Copyright", 3, "icon_copyright", 1, 1);
+    auto copyright = UI<TextArea>("Copyright", 3, "OpenCoreFont", 0, 0);
+    copyright->setText("©GIGA 2006 All Rights Reserved.");
+    copyright->setAttribute(copyrightAttr);
+    copyright->setFontSize(42);
+    copyright->align(AnchorPoint::MiddleRight);
 
     copyright->Configure()
         .Anchor(AnchorPoint::BottomRight)
         .PositeR(0.97f, 0.96f)
-        .ScaleR(0.0f, 0.043f)
+        .ScaleR(0.34f, 0.043f)
         .Alpha(0.0f)
         .Sequence(true);
 
-    copyright->setBackgroundColor(kDebugTint);
+    // copyright->setBackgroundColor(kDebugTint);
 
     copyright->Animate()
         .Timer(8.0f)
