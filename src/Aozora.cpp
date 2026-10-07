@@ -1,6 +1,5 @@
 #include "Aozora/Aozora.hpp"
-#include "Aozora/Stage/PreloadStage.hpp"
-#include "Core/Info/ResourceInfo.hpp"
+
 #include <exception>
 #include <memory>
 #include <stdexcept>
@@ -57,8 +56,10 @@ bool Aozora::StartUp()
         {RscTexture, "HD_Logo_Transparent",
          "assets/ui/HD_Logo_Transparent.png"},
         {RscTexture, "menu_nighttime", "assets/backgrounds/menu_nighttime.png"},
+        {RscTexture, "messagePanel", "assets/ui/dialog/messageBox.png"},
         {RscFont, "OpenCoreFont", "assets/ui/font/OpenCoreFont.ttf"},
         {RscFont, "AozoraFont", "assets/ui/font/AozoraFont.ttc"},
+        {RscFont, "ChineseFont", "assets/ui/font/ChineseFont.otf"},
         {RscAudio, "bgm_oceanwaves", "assets/audio/bgm_oceanwaves.mp3"},
         {RscAudio, "bgm_seawave1", "assets/audio/bgm_seawave1.mp3"},
         {RscAudio, "bgm_seawave2", "assets/audio/bgm_seawave2.mp3"},

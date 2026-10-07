@@ -1,10 +1,14 @@
 #include "Aozora/Stage/MainStage.hpp"
 #include "Core/Math/OpenCore_Color.hpp"
+#include "Gameplay/AVG/Stage/VisualNovelStage.hpp"
 #include "OpenCore.hpp"
+#include "Runtime/Animation/IAnimation.hpp"
 #include "Runtime/Graphics/UI/ImageBoard.hpp"
 #include "Runtime/Graphics/UI/TextArea.hpp"
 #include "Runtime/Graphics/UI/TextButton.hpp"
 #include <memory>
+
+#include "Aozora/Aozora.hpp"
 
 namespace
 {
@@ -186,6 +190,11 @@ void MainStage::initializeComponents()
     // button_set->setBackgroundColor(kDebugTint);
     // button_exit->setBackgroundColor(kDebugTint);
 
+    button_new->align(AnchorPoint::MiddleRight);
+    button_con->align(AnchorPoint::MiddleRight);
+    button_set->align(AnchorPoint::MiddleRight);
+    button_exit->align(AnchorPoint::MiddleRight);
+
     button_new->Animate()
         .Timer(5.0f)
         .SubStart(true)
@@ -217,6 +226,13 @@ void MainStage::initializeComponents()
         .SubEnd()
         .Commit();
 
+    button_new->setOnClick(
+        [&]()
+        {
+            auto vnStage = std::make_unique<ScriptStage>();
+            sController->changeStage(std::move(vnStage));
+        });
+
     Elements->PushElement(std::move(button_new));
     Elements->PushElement(std::move(button_con));
     Elements->PushElement(std::move(button_set));
@@ -236,6 +252,7 @@ void MainStage::initializeComponents()
         .Sequence(true);
 
     // copyright->setBackgroundColor(kDebugTint);
+    copyright->align(AnchorPoint::MiddleRight);
 
     copyright->Animate()
         .Timer(8.0f)
